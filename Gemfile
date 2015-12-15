@@ -45,6 +45,7 @@ group :development, :test do
   gem "pry-rails", "~> 0.3.4"
   gem "factory_girl_rails"
   gem "faker", "~> 1.6", ">= 1.6.1"
+  gem "rails_layout", "~> 1.0", ">= 1.0.29"
   gem "awesome_print"
   gem 'guard-rspec'
   gem 'spork'

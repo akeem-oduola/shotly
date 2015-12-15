@@ -2,7 +2,7 @@
 
 <p>
   <strong>Short url:</strong>
-  <%= @link.short_url %>
+  <a href = <%= "#{display_link(@link.short_url)}" %> target ="_blank"><%= display_link(@link.short_url)%></a>
 </p>
 
 <p>
@@ -12,3 +12,7 @@
 
 <%= link_to 'Edit', edit_link_path(@link) %> |
 <%= link_to 'Back', links_path %>
+
+
+<%= "
+                f.short_url)}"%>

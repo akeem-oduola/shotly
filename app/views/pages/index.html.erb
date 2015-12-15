@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row lead">
     <div align = "center">
       <h1>Shotly</h1>
       <p><h5>MAKE YOUR URL AS SHORT AS POSSIBLE</h5></p>
@@ -13,6 +13,40 @@
               </span>
             </div>
         <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <div class="panel panel-primary">
+          <!-- Default panel contents -->
+          <div class="panel-heading">Popular</div>
+            <!-- List group -->
+            <ul class="list-group">
+              <% @popular.each do |f| %>
+              <li class="list-group-item"> <a  href = <%= "
+                #{display_link(f.short_url)}"%>
+                class="test" data-toggle="tooltip" title="<%= f.url %>" target ="_blank"><%= display_link(f.short_url)%></a><span class="badge"><%= f.clicks_count %>&nbsp;<%= f.clicks_count == 1 ? "click" : "clicks" %></span></li>
+              <% end %>
+            </ul>
+          </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="panel panel-primary">
+          <!-- Default panel contents -->
+          <div class="panel-heading">Recent</div>
+            <!-- List group -->
+            <ul class="list-group">
+              <% @recent.each do |f| %>
+            <li class="list-group-item"> <a  href = <%= "
+              #{display_link(f.short_url)}"%>
+              class="test" data-toggle="tooltip" title="<%= f.url %>" target ="_blank"><%= display_link(f.short_url)%></a><span class="badge"><%= f.clicks_count %>&nbsp;<%= f.clicks_count == 1 ? "click" : "clicks" %></span></li>
+              <% end %>
+            </ul>
+        </div>
       </div>
     </div>
   </div>

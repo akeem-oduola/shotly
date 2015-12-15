@@ -12,6 +12,16 @@ body { padding-top: 70px; }
   padding: 30px;
 }
 
+/* Tooltip */
+.test + .tooltip > .tooltip-inner {
+    background-color: #3498db;
+    color: #FFFFFF;
+    border: 1px solid #2980b9;
+    padding: 25px;
+    font-size: 15px;
+    width: 400px;
+}
+
 // // make all images responsive by default
 // img {
 //   @extend .img-responsive;

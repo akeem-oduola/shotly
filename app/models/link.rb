@@ -1,8 +1,16 @@
 class Link < ActiveRecord::Base
   before_create :set_short_url
   before_save :url_check
-
+  has_many :clicks
   validates :url, presence: true
+
+  scope :recent, lambda {
+    order("links.created_at DESC")
+  }
+
+  scope :popular, lambda {
+    order("links.clicks_count desc")
+  }
 
   private
 

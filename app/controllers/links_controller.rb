@@ -1,7 +1,8 @@
 class LinksController < ApplicationController
   include LinksHelper
-  
+
   before_action :set_link, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user, except: [:create, :redirect_link]
 
   # GET /links
   # GET /links.json
@@ -27,13 +28,23 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(link_params)
+    @link.user_id = (current_user) ? session[:user_id] : 0
 
     respond_to do |format|
       if @link.save
-        format.html { redirect_to @link, notice: 'Link was successfully created.' }
-        format.json { render :show, status: :created, location: @link }
+        if current_user
+          format.html do
+            redirect_to dashboard_path, notice: "Link was successfully created."
+          end
+        else
+          format.html do
+            redirect_to root_path, notice: "Link was successfully created."
+          end
+          format.json { render :show, status: :created, location: @link }
+        end
       else
-        format.html { render :new }
+        flash[:error] = "Url field is empty, please enter information."
+        format.html { redirect_to :back }
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
     end

@@ -1,1 +1,12 @@
 <%# add navigation links to this file %>
+<% if current_user %>
+  <ul class="nav navbar-nav navbar-right">
+    <li><%= image_tag(current_user.image_url, alt: current_user.name, class: "img-circle")%></li>
+    <li><%= link_to 'Dashboard', dashboard_path %></li>
+    <li><%= link_to 'Log Out', sign_out_path, method: :delete %></li>
+  </ul>
+<% else %>
+  <ul class="nav navbar-nav navbar-right">
+    <li><%= link_to 'Please Login with:  Facebook', '/auth/facebook' %></li>
+  </ul>
+<% end %>

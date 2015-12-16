@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root "pages#index"
-
   resources :links
+  get "auth/:provider/callback", to: "sessions#create"
+  get "dashboard", to: "pages#dashboard", as: "dashboard"
+  delete "sign_out", to: "sessions#destroy", as: "sign_out"
   get "/:path", to: "links#redirect_link"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

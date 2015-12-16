@@ -12,4 +12,6 @@ class User < ActiveRecord::Base
            name: auth["info"]["name"],
            image_url: auth["info"]["image"])
   end
+
+  scope :top, -> { order("users.links_count DESC") }
 end

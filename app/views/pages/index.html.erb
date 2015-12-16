@@ -20,7 +20,7 @@
 <hr>
 <div class="row">
     <div class="col-md-12">
-      <div class="col-md-4">
+      <div class="col-md-4 btm-space">
         <div class="panel panel-primary">
           <!-- Default panel contents -->
           <div class="panel-heading">Popular</div>
@@ -34,7 +34,7 @@
             </ul>
           </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4 btm-space">
         <div class="panel panel-primary">
           <!-- Default panel contents -->
           <div class="panel-heading">Recent</div>
@@ -48,7 +48,19 @@
             </ul>
         </div>
       </div>
-    </div>
+      <div class="col-sm-4 btm-space">
+        <div class="panel panel-primary">
+          <!-- Default panel contents -->
+          <div class="panel-heading">Top Users</div>
+            <!-- List group -->
+            <ul class="list-group">
+              <% @top.each do |f| %>
+              <li class="list-group-item"><%= f.name%></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 <br>

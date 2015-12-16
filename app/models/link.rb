@@ -3,6 +3,7 @@ class Link < ActiveRecord::Base
   before_save :url_check
   has_many :clicks
   validates :url, presence: true
+  belongs_to :user, counter_cache: true
 
   scope :recent, lambda {
     order("links.created_at DESC")
@@ -20,7 +21,7 @@ class Link < ActiveRecord::Base
 
   def set_short_url
     return short_url if short_url.present?
-    
+
     try_short_url = SecureRandom.urlsafe_base64(4)
     while Link.where(:short_url => try_short_url).any?
       try_short_url = SecureRandom.urlsafe_base64(4)

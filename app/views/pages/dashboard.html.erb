@@ -18,3 +18,36 @@
   </div>
 </div>
 <hr>
+<div class="col-sm-12  col-sm-offset-0 my_links" align ="center">
+  <h2 class="sub-header">My Links</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Short Url</th>
+          <th>Clicks</th>
+          <th>Long Url</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user_links.each do |link| %>
+          <tr>
+            <td><a href = <%= "
+              #{display_link(link.short_url)}"%>
+              target ="_blank"><%= display_link(link.short_url)%></a>
+            </td>
+            <td><span class="badge"><%= link.clicks_count %>&nbsp;
+              <%= link.clicks_count == 1 ? "click" : "clicks" %></span>
+            </td>
+            <td><%= link.url %></td>
+            <td><%= link_to 'Details', link %></td>
+            <td><%= link_to 'Edit', edit_link_path(link) %></td>
+            <td><%= link_to 'Destroy', link, method: :delete,
+                  data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

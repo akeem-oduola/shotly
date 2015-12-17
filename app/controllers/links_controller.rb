@@ -1,5 +1,6 @@
 class LinksController < ApplicationController
   include LinksHelper
+  include ClicksHelper  
 
   before_action :set_link, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user, except: [:create, :redirect_link]
@@ -13,6 +14,12 @@ class LinksController < ApplicationController
   # GET /links/1
   # GET /links/1.json
   def show
+    @link = Link.find(params[:id])
+    @num_of_days = (params[:num_of_days] || 15).to_i
+    @count_days_bar = Click.count_days_bar(params[:id], @num_of_days)
+    chart = Click.count_country_chart(params[:id], params[:map] || "world")
+    @count_country_map = chart[:map]
+    @count_country_bar = chart[:bar]
   end
 
   # GET /links/new
@@ -76,6 +83,10 @@ class LinksController < ApplicationController
 
   def redirect_link
     @link = Link.find_by(short_url: params[:path])
+    click = @link.clicks.new(ip: get_remote_ip)
+    click.country = get_remote_country
+    click.save
+    @link.save
     redirect_to @link.url
   end
 

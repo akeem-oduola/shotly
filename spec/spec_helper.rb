@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'spork'
+require "phantomjs"
 require 'database_cleaner'
 
 Spork.prefork do

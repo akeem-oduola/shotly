@@ -7,7 +7,7 @@
       <div class="col-lg-8 col-lg-offset-2">
         <%= form_tag("/links", method: :post, :html => {class: 'form-horizontal'}) do %>
             <div class="input-group">
-              <%= text_field :link, :url, placeholder: "Enter long url", class:"form-control input-lg", required: :true %>
+              <%= text_field :link, :url, placeholder: "Enter long url", class:"form-control input-lg" %>
               <span class="input-group-btn">
                 <%= submit_tag 'Shorten Url' ,class: "btn btn-primary input-lg" %>
               </span>

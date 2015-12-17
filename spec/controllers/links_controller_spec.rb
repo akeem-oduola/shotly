@@ -46,7 +46,7 @@ RSpec.describe LinksController, :type => :controller do
       end
 
       it "redirects to dashboard when logged in upon save" do
-        post :create, {link: FactoryGirl.attributes_for(:link)}, user_id: @user.id
+        post :create, { link: FactoryGirl.attributes_for(:link) }, user_id: @user.id
         expect(response).to redirect_to dashboard_url
       end
     end
@@ -55,7 +55,7 @@ RSpec.describe LinksController, :type => :controller do
       it "does not save the new link" do
         expect{
           post :create, link: FactoryGirl.attributes_for(:invalid_link)
-        }.to_not change(Link,:count)
+        }.to_not change(Link, :count)
       end
       before do
         @request.env["HTTP_REFERER"] = "http://test.com/pages/dashboard"
@@ -75,13 +75,13 @@ RSpec.describe LinksController, :type => :controller do
     end
 
     it "updates link when logged in" do
-      patch :update, { id: @link, link: {short_url: "love"}}, user_id: @user.id
+      patch :update, { id: @link, link: { short_url: "love" } }, user_id: @user.id
       @link.reload
-      expect(@link.short_url).to  eq("love")
+      expect(@link.short_url).to eq("love")
     end
 
     it "does not update link when logged out" do
-      patch :update, { id: @link, link: { short_url: "love" }}
+      patch :update, { id: @link, link: { short_url: "love" } }
       @link.reload
       expect(@link.short_url).not_to eq("love")
     end

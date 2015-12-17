@@ -23,7 +23,7 @@ class Link < ActiveRecord::Base
     return short_url if short_url.present?
 
     try_short_url = SecureRandom.urlsafe_base64(4)
-    while Link.where(:short_url => try_short_url).any?
+    while Link.where(short_url: try_short_url).any?
       try_short_url = SecureRandom.urlsafe_base64(4)
     end
     self.short_url = try_short_url

@@ -60,18 +60,12 @@ class LinksController < ApplicationController
   # PATCH/PUT /links/1
   # PATCH/PUT /links/1.json
   def update
-      respond_to do |format|
-        if @link.update(link_params)
-          format.html do
-            redirect_to dashboard_path, notice: "Link was successfully updated."
-          end
-          format.json { render :show, status: :ok, location: @link }
-        else
-          format.html { render :edit }
-          format.json { render json: @link.errors, status: :unprocessable_entity }
-        end
-      end
+    if @link.update(link_params)
+      redirect_to dashboard_path, notice: "Link was successfully updated."
+    else
+      format.html { render :edit }
     end
+  end
 
   # DELETE /links/1
   # DELETE /links/1.json
@@ -84,7 +78,6 @@ class LinksController < ApplicationController
       click = @link.clicks.new(ip: get_remote_ip)
       click.country = get_remote_country
       click.save
-      @link.save
       redirect_to @link.url
     elsif @link.deleted
       redirect_to root_path, alert: "Link has been deleted by owner."
@@ -94,13 +87,13 @@ class LinksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_link
-      @link = Link.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def link_params
-      params.require(:link).permit(:id,:short_url, :url, :active, :deleted)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_link
+    @link = Link.find(params[:id])
+  end
+
+  def link_params
+    params.require(:link).permit(:id, :short_url, :url, :active, :deleted)
+  end
 end

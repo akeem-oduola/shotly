@@ -1,3 +1,6 @@
+[![Circle CI](https://circleci.com/gh/andela-aoduola/shotly.svg?style=svg)](https://circleci.com/gh/andela-aoduola/shotly)
+[![Coverage Status](https://coveralls.io/repos/andela-aoduola/shotly/badge.svg?branch=master&service=github)](https://coveralls.io/github/andela-aoduola/shotly?branch=master)
+
 # README
 ## Overview
 

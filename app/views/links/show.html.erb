@@ -1,14 +1,30 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Short url:</strong>
-  <a href = <%= "#{display_link(@link.short_url)}" %> target ="_blank"><%= display_link(@link.short_url)%></a>
-</p>
-
-<p>
   <strong>Url:</strong>
   <%= @link.url %>
 </p>
 
-<%= link_to 'Edit', edit_link_path(@link) %> |
-<%= link_to 'Back', links_path %>
+<p>
+  <strong>Short url:</strong>
+  <%= @link.short_url %>
+</p>
+
+<div class="panel panel-default center-block">
+  <div class="panel-heading">Number of visits by country</div>
+  <div class="panel-body">
+    <img src="<%= @count_country_map %>" class="img-responsive ">
+  </div>
+</div>
+
+<div class="panel panel-default center-block">
+  <div class="panel-heading">Number of visits</div>
+  <div class="panel-body">
+    <img src="<%= @count_country_bar %>" class="img-responsive ">
+  </div>
+</div>
+
+<div class="btm-space">
+  <%= link_to 'Edit', edit_link_path(@link) %> |
+  <%= link_to 'Back', dashboard_path %>
+</div>

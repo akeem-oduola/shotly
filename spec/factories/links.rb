@@ -1,7 +1,11 @@
+require "faker"
+
 FactoryGirl.define do
   factory :link do
-    short_url "MyString"
-url "MyString"
+    url { Faker::Internet.url }
   end
 
+  factory :invalid_link, parent: :link do
+    url nil
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217021309) do
+ActiveRecord::Schema.define(version: 20151217030754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,12 +29,14 @@ ActiveRecord::Schema.define(version: 20151217021309) do
   create_table "links", force: :cascade do |t|
     t.string   "short_url"
     t.string   "url"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "clicks_count", default: 0
     t.integer  "user_id"
+    t.boolean  "active",       default: true
   end
 
+  add_index "links", ["short_url"], name: "index_links_on_short_url", unique: true, using: :btree
   add_index "links", ["user_id"], name: "index_links_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|

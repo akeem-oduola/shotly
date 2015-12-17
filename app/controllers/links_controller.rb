@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
   include LinksHelper
-  include ClicksHelper  
+  include ClicksHelper
 
   before_action :set_link, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user, except: [:create, :redirect_link]
@@ -60,16 +60,18 @@ class LinksController < ApplicationController
   # PATCH/PUT /links/1
   # PATCH/PUT /links/1.json
   def update
-    respond_to do |format|
-      if @link.update(link_params)
-        format.html { redirect_to @link, notice: 'Link was successfully updated.' }
-        format.json { render :show, status: :ok, location: @link }
-      else
-        format.html { render :edit }
-        format.json { render json: @link.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @link.update(link_params)
+          format.html do
+            redirect_to dashboard_path, notice: "Link was successfully updated."
+          end
+          format.json { render :show, status: :ok, location: @link }
+        else
+          format.html { render :edit }
+          format.json { render json: @link.errors, status: :unprocessable_entity }
+        end
       end
     end
-  end
 
   # DELETE /links/1
   # DELETE /links/1.json
@@ -83,11 +85,15 @@ class LinksController < ApplicationController
 
   def redirect_link
     @link = Link.find_by(short_url: params[:path])
-    click = @link.clicks.new(ip: get_remote_ip)
-    click.country = get_remote_country
-    click.save
-    @link.save
-    redirect_to @link.url
+    if @link.active
+      click = @link.clicks.new(ip: get_remote_ip)
+      click.country = get_remote_country
+      click.save
+      @link.save
+      redirect_to @link.url
+    else
+      redirect_to root_path, alert: "Link is curently inactive."
+    end
   end
 
   private
@@ -98,6 +104,6 @@ class LinksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:short_url, :url)
+      params.require(:link).permit(:short_url, :url, :active)
     end
 end

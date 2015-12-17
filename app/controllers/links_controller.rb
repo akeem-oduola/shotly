@@ -85,12 +85,14 @@ class LinksController < ApplicationController
 
   def redirect_link
     @link = Link.find_by(short_url: params[:path])
-    if @link.active
+    if @link.active && !@link.deleted
       click = @link.clicks.new(ip: get_remote_ip)
       click.country = get_remote_country
       click.save
       @link.save
       redirect_to @link.url
+    elsif @link.deleted
+      redirect_to root_path, alert: "Link has been deleted by owner."
     else
       redirect_to root_path, alert: "Link is curently inactive."
     end
@@ -104,6 +106,6 @@ class LinksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:short_url, :url, :active)
+      params.require(:link).permit(:short_url, :url, :active, :deleted)
     end
 end
